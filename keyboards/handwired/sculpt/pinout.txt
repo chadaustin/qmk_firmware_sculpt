@@ -1,0 +1,33 @@
+Courtesy of https://github.com/fincham/wired-sculpt
+
+NC = 1
+Row 1 = 2
+Row 2 = 3
+Row 3 = 4
+Row 4 = 5
+Row 5 = 6
+Row 6 = 7
+Row 7 = 8
+Row 8 = 9
+Col 1 = 10
+Col 2 = 11
+Col 3 = 12
+Col 4 = 13
+Col 5 = 14
+Col 6 = 15
+Col 7 = 16
+Col 8 = 17
+Col 9 = 18
+Col 10 = 19
+Col 11 = 20
+Col 12 = 21
+Col 13 = 22
+Col 14 = 23
+Col 15 = 24
+Col 16 = 25
+Col 17 = 26
+Col 18 = 27
+Red LED + = 28
+Green LED + = 29
+LED and function switch ground = 30
+
