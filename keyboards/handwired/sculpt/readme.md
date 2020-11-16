@@ -1,5 +1,6 @@
 # Microsoft Sculpt
 
-Using the pinout I worked out at https://github.com/fincham/wired-sculpt to implement a de-wireless'd version of this ergonomic keyboard.
+Based on Michael Fincham's pinout [1] and keyboard definition [2], build a wired USB control board for the Microsoft Sculpt. KiCad files for board included.
 
-Loosely based on the "MS Sculpt Mobile" keyboard already in QMK.
+[1] https://github.com/fincham/wired-sculpt
+[2] https://github.com/fincham/qmk_firmware_sculpt

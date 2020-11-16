@@ -1,0 +1,32 @@
+Matrix layout courtesy of https://github.com/fincham/wired-sculpt
+
+Pin 1 = Fn switch. Pulled to Pin 30 at 47K if Fn, floating if not.
+Pin 2 = Row 1
+Pin 3 = Row 2
+Pin 4 = Row 3
+Pin 5 = Row 4
+Pin 6 = Row 5
+Pin 7 = Row 6
+Pin 8 = Row 7
+Pin 9 = Row 8
+Pin 10 = Column 1
+Pin 11 = Column 2
+Pin 12 = Column 3
+Pin 13 = Column 4
+Pin 14 = Column 5
+Pin 15 = Column 6
+Pin 16 = Column 7
+Pin 17 = Column 8
+Pin 18 = Column 9
+Pin 19 = Column 10
+Pin 20 = Column 11
+Pin 21 = Column 12
+Pin 22 = Column 13
+Pin 23 = Column 14
+Pin 24 = Column 15
+Pin 25 = Column 16
+Pin 26 = Column 17
+Pin 27 = Column 18
+Pin 28 = Red LED Anode
+Pin 29 = Green LED Cathode
+Pin 30 = Ground, connected to Fn switch and both LEDs.
