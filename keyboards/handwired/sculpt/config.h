@@ -63,7 +63,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+#define LATENCY_MODE_ENABLE 0
+#define LATENCY_MODE_PIN D2
+
+#if !LATENCY_MODE_ENABLE
 #define LED_CAPS_LOCK_PIN D2
+#endif
 
 #define SCULPT_RIGHT_SPACE_KEY KC_SPC
 
