@@ -72,6 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SCULPT_RIGHT_SPACE_KEY KC_SPC
 
+#define USB_POLLING_INTERVAL_MS 2
+
 
 /*
  * Feature disable options
