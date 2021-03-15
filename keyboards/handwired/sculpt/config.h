@@ -39,8 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+/*
+ * This keyboard uses the sym_eager_pk debouncer by default, which avoids
+ * the 5 ms settle latency on each keypress. But it appears there is some
+ * contact noise on keyup, so increase the debounce delay to 10 to avoid
+ * duplicate keypresses.
+ */
+#define DEBOUNCE 10
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST
