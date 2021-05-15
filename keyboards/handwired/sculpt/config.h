@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LATENCY_MODE_PIN D2
 
 #if !LATENCY_MODE_ENABLE
-#define LED_CAPS_LOCK_PIN D2
+#define LED_CAPS_LOCK_PIN B7
 #endif
 
 #define SCULPT_RIGHT_SPACE_KEY KC_SPC

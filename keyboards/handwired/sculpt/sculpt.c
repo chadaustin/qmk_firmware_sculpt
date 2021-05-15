@@ -13,6 +13,10 @@ void keyboard_pre_init_kb(void) {
     PRR0 = 0b10000101;
     PRR1 = 0b00000001;
 
+    // Default the charge pump's EN to off
+    PORTB &= ~1;
+    DDRB |= 1;
+
 #if LATENCY_MODE_ENABLE
     setPinOutput(LATENCY_MODE_PIN);
 #endif
