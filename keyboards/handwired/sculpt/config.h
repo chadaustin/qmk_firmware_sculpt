@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * contact noise on keyup, so increase the debounce delay to 10 to avoid
  * duplicate keypresses.
  */
-#define DEBOUNCE 10
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST
@@ -72,12 +72,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LATENCY_MODE_PIN D2
 
 #if !LATENCY_MODE_ENABLE
-#define LED_CAPS_LOCK_PIN D2
+#define LED_CAPS_LOCK_PIN B5
 #endif
 
 #define SCULPT_RIGHT_SPACE_KEY KC_SPC
 
-#define USB_POLLING_INTERVAL_MS 2
+//#define USB_POLLING_INTERVAL_MS 2
 
 
 /*

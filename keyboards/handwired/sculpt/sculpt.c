@@ -2,7 +2,7 @@
 
 #include <avr/power.h>
 
-void keyboard_pre_init_kb(void) {
+                 void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 
     // The default fuse bit from the factory enables CLKDIV,
@@ -12,6 +12,9 @@ void keyboard_pre_init_kb(void) {
     // Power reduction. Doesn't save much. :(
     PRR0 = 0b10000101;
     PRR1 = 0b00000001;
+
+    PORTB &= ~1;
+    DDRB |= 1;
 
 #if LATENCY_MODE_ENABLE
     setPinOutput(LATENCY_MODE_PIN);

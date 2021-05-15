@@ -12,7 +12,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Shaves about 5 ms of latency off each keypress.
 # In theory, this makes the keyboard more susceptible to noise, but
 # I have not experienced any issues.
-DEBOUNCE_TYPE = sym_eager_pk
+#DEBOUNCE_TYPE = sym_eager_pk
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
