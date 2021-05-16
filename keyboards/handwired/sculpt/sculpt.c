@@ -2,7 +2,7 @@
 
 #include <avr/power.h>
 
-                 void keyboard_pre_init_kb(void) {
+void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 
     // The default fuse bit from the factory enables CLKDIV,
@@ -21,15 +21,47 @@
 #endif
 }
 
+void keyboard_post_init_kb(void) {
+    // This runs after dip_switch_init. We cannot rely on the internal
+    // pull-up on the Fn switch pin because the pull-down is weak at about
+    // 47K and the AT90USB's internal pull-up is between 20K and 50K.
+    setPinInput(F4);
+
+    keyboard_post_init_user();
+}
+
+void dip_switch_update_kb(uint8_t index, bool active) {
+    switch (index) {
+    case 0:
+        if (active) {
+            layer_off(1);
+        } else {
+            layer_on(1);
+        }
+    }
+    dip_switch_update_user(index, active);
+}
+
+#if 0
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+    if (readPin(F4)) {
+        process_record_
+        // media keys
+    } else {
+        // function keys
+    }
+}
+#endif
 
 #if LATENCY_MODE_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     static int count = 0;
     if (record->event.pressed) {
         ++count;
-#ifdef LATENCY_MODE_PIN
+#    ifdef LATENCY_MODE_PIN
         writePinHigh(LATENCY_MODE_PIN);
-#endif
+#    endif
     } else {
         --count;
         if (count < 0) {
