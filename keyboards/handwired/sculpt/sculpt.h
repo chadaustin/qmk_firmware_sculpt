@@ -12,13 +12,13 @@
     k6H, k3F, k4G, k6B, k68, k46, k43, k60, k48, k64, k61 \
 ) \
 { \
-    {KC_NO, k01, KC_NO, k03, k04, k05, KC_NO, k07, k08, k09, k0A, k0B, k0C, k0D, KC_NO, KC_NO, KC_NO, KC_NO}, \
-    {KC_NO, k11, KC_NO, k13, k14, k15, KC_NO, k17, k18, k19, k1A, k1B, k1C, k1D, KC_NO, k1F, KC_NO, KC_NO}, \
-    {KC_NO, k21, KC_NO, k23, k24, k25, KC_NO, k27, KC_NO, k29, k2A, k2B, k2C, k2D, KC_NO, k2F, KC_NO, KC_NO}, \
-    {KC_NO, k31, KC_NO, k33, k34, k35, KC_NO, k37, k38, k39, k3A, k3B, KC_NO, k3D, KC_NO, k3F, KC_NO, KC_NO}, \
-    {KC_NO, KC_NO, KC_NO, k43, k44, k45, k46, KC_NO, k48, k49, k4A, k4B, k4C, k4D, KC_NO, KC_NO, k4G, KC_NO}, \
-    {KC_NO, k51, k52, k53, KC_NO, k55, KC_NO, k57, KC_NO, k59, k5A, k5B, k5C, k5D, k5E, KC_NO, KC_NO, KC_NO}, \
-    {k60, k61, KC_NO, k63, k64, KC_NO, KC_NO, KC_NO, k68, k69, k6A, k6B, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k6H}, \
-    {KC_NO, k71, KC_NO, k73, k74, k75, KC_NO, k77, k78, k79, k7A, k7B, k7C, k7D, KC_NO, k7F, KC_NO, KC_NO} \
+    {KC_NO, k01,   KC_NO, k03, k04,   k05,   KC_NO, k07,   k08,   k09, k0A, k0B, k0C,   k0D,   KC_NO, KC_NO, KC_NO, KC_NO}, \
+    {KC_NO, k11,   KC_NO, k13, k14,   k15,   KC_NO, k17,   k18,   k19, k1A, k1B, k1C,   k1D,   KC_NO, k1F,   KC_NO, KC_NO}, \
+    {KC_NO, k21,   KC_NO, k23, k24,   k25,   KC_NO, k27,   KC_NO, k29, k2A, k2B, k2C,   k2D,   KC_NO, k2F,   KC_NO, KC_NO}, \
+    {KC_NO, k31,   KC_NO, k33, k34,   k35,   KC_NO, k37,   k38,   k39, k3A, k3B, KC_NO, k3D,   KC_NO, k3F,   KC_NO, KC_NO}, \
+    {KC_NO, KC_NO, KC_NO, k43, k44,   k45,   k46,   KC_NO, k48,   k49, k4A, k4B, k4C,   k4D,   KC_NO, KC_NO, k4G,   KC_NO}, \
+    {KC_NO, k51,   k52,   k53, KC_NO, k55,   KC_NO, k57,   KC_NO, k59, k5A, k5B, k5C,   k5D,   k5E,   KC_NO, KC_NO, KC_NO}, \
+    {k60,   k61,   KC_NO, k63, k64,   KC_NO, KC_NO, KC_NO, k68,   k69, k6A, k6B, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k6H}, \
+    {KC_NO, k71,   KC_NO, k73, k74,   k75,   KC_NO, k77,   k78,   k79, k7A, k7B, k7C,   k7D,   KC_NO, k7F,   KC_NO, KC_NO} \
 }
 #endif
