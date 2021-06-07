@@ -8,10 +8,11 @@ BOOTLOADER = atmel-dfu
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-# Shaves about 5 ms of latency off each keypress.
-# In theory, this makes the keyboard more susceptible to noise, but
-# I have not experienced any issues.
-DEBOUNCE_TYPE = sym_eager_pk
+# The default debouncer (sym_defer_g) adds 5 ms of latency to each keypress.
+# sym_eager_pk shaves about 5 ms of latency off each keypress, but I have
+# observed some bouncing. Since keydown latency is more perceptible than
+# keyup, use an asymmetric debouncer.
+DEBOUNCE_TYPE = asym_defer_pk
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)

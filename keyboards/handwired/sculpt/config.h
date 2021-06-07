@@ -41,12 +41,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /*
- * This keyboard uses the sym_eager_pk debouncer by default, which avoids
- * the 5 ms settle latency on each keypress. But it appears there is some
- * contact noise on keyup, so increase the debounce delay to 10 to avoid
- * duplicate keypresses.
+ * 2 ms (a scan frame or two) should be sufficient to avoid the most common
+ * bounces.
  */
-#define DEBOUNCE 10
+#define DEBOUNCE_DOWN 2
+/*
+ * Keyup latency is less perceptible unless phantom keys appear, so use
+ * a longer debounce.
+ */
+#define DEBOUNCE_UP 10
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST
