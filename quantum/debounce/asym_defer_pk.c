@@ -25,6 +25,9 @@ per key.
 #include "quantum.h"
 #include <stdlib.h>
 
+#define likely(x)      __builtin_expect(!!(x), 1)
+#define unlikely(x)    __builtin_expect(!!(x), 0)
+
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -37,7 +40,9 @@ per key.
 #    define DEBOUNCE_UP DEBOUNCE
 #endif
 
-#define ROW_SHIFTER ((matrix_row_t)1)
+#ifndef DEBOUNCE_MUTE
+#    define DEBOUNCE_MUTE 20
+#endif
 
 typedef struct asym_defer_state_t {
     uint8_t count;
@@ -64,7 +69,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     asym_defer_state_t *statep = state;
 
     for (uint8_t row = 0; row < num_rows; ++row) {
-      if (row_counts[row] == 0 && !changed) {
+      if (likely(row_counts[row] == 0) && !changed) {
           statep += MATRIX_COLS;
           continue;
       }
@@ -73,20 +78,21 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
       matrix_row_t cooked_row = cooked[row];
       matrix_row_t delta = raw_row ^ cooked_row;
 
-      matrix_row_t col_mask = ROW_SHIFTER;
+      matrix_row_t col_mask = 1;
       for (uint8_t col = 0; col < MATRIX_COLS; ++col, col_mask <<= 1, ++statep) {
-        if (changed && (delta & col_mask)) {
-          uint8_t new_count = (raw_row & col_mask) ? DEBOUNCE_DOWN : DEBOUNCE_UP;
-          if (0 == statep->count) {
-            ++row_counts[row];
-          }
-          statep->count = new_count;
-        } else if (statep->count > elapsed) {
+        if (unlikely(statep->count > elapsed)) {
           statep->count -= elapsed;
-        } else if (statep->count) {
-          statep->count = 0;
-          cooked_row = (~col_mask & cooked_row) | (col_mask & raw_row);
-          --row_counts[row];
+        } else if (unlikely(statep->count)) {
+          if (delta & col_mask) {
+            cooked_row ^= col_mask;
+            statep->count = DEBOUNCE_MUTE;
+          } else {
+            statep->count = 0;
+            --row_counts[row];
+          }
+        } else if (changed && (delta & col_mask)) {
+          ++row_counts[row];
+          statep->count = (raw_row & col_mask) ? DEBOUNCE_DOWN : DEBOUNCE_UP;
         }
       }
 
