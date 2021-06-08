@@ -28,6 +28,16 @@ per key.
 #define likely(x)      __builtin_expect(!!(x), 1)
 #define unlikely(x)    __builtin_expect(!!(x), 0)
 
+/*
+ * Keyboards with more than 16 columns can save a significant number of
+ * instructions on AVR by using 24-bit integers instead of 32-bit.
+ */
+#if (MATRIX_COLS > 16 && MATRIX_COLS <= 24)
+typedef __uint24 local_row_t;
+#else
+typedef matrix_row_t local_row_t;
+#endif
+
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -74,11 +84,11 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
           continue;
       }
 
-      matrix_row_t raw_row = raw[row];
-      matrix_row_t cooked_row = cooked[row];
-      matrix_row_t delta = raw_row ^ cooked_row;
+      local_row_t raw_row = raw[row];
+      local_row_t cooked_row = cooked[row];
+      local_row_t delta = raw_row ^ cooked_row;
 
-      matrix_row_t col_mask = 1;
+      local_row_t col_mask = 1;
       for (uint8_t col = 0; col < MATRIX_COLS; ++col, col_mask <<= 1, ++statep) {
         if (unlikely(statep->count > elapsed)) {
           statep->count -= elapsed;
