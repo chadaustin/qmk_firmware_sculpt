@@ -74,6 +74,7 @@ void debounce_init(uint8_t num_rows) {
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     uint16_t elapsed16 = timer_elapsed(last_time);
+    last_time = elapsed16;
     uint8_t elapsed = (elapsed16 > 255) ? 255 : elapsed16;
 
     asym_defer_state_t *statep = state;
