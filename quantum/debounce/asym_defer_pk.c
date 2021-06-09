@@ -25,8 +25,8 @@ per key.
 #include "quantum.h"
 #include <stdlib.h>
 
-#define likely(x)      __builtin_expect(!!(x), 1)
-#define unlikely(x)    __builtin_expect(!!(x), 0)
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
 
 /*
  * Keyboards with more than 16 columns can save a significant number of
@@ -66,48 +66,49 @@ static asym_defer_state_t* state;
 static uint8_t* row_counts;
 
 void debounce_init(uint8_t num_rows) {
-    state = (asym_defer_state_t*)calloc(num_rows, MATRIX_COLS * sizeof(asym_defer_state_t));
+    state      = (asym_defer_state_t*)calloc(num_rows, MATRIX_COLS * sizeof(asym_defer_state_t));
     row_counts = (uint8_t*)calloc(num_rows, sizeof(uint8_t));
 
     last_time = timer_read();
 }
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    uint16_t elapsed16 = timer_elapsed(last_time);
-    last_time = elapsed16;
-    uint8_t elapsed = (elapsed16 > 255) ? 255 : elapsed16;
+    uint16_t now       = timer_read();
+    uint16_t elapsed16 = TIMER_DIFF_16(now, last_time);
+    last_time          = now;
+    uint8_t elapsed    = (elapsed16 > 255) ? 255 : elapsed16;
 
-    asym_defer_state_t *statep = state;
+    asym_defer_state_t* statep = state;
 
     for (uint8_t row = 0; row < num_rows; ++row) {
-      if (likely(row_counts[row] == 0) && !changed) {
-          statep += MATRIX_COLS;
-          continue;
-      }
-
-      local_row_t raw_row = raw[row];
-      local_row_t cooked_row = cooked[row];
-      local_row_t delta = raw_row ^ cooked_row;
-
-      local_row_t col_mask = 1;
-      for (uint8_t col = 0; col < MATRIX_COLS; ++col, col_mask <<= 1, ++statep) {
-        if (unlikely(statep->count > elapsed)) {
-          statep->count -= elapsed;
-        } else if (unlikely(statep->count)) {
-          if (delta & col_mask) {
-            cooked_row ^= col_mask;
-            statep->count = DEBOUNCE_MUTE;
-          } else {
-            statep->count = 0;
-            --row_counts[row];
-          }
-        } else if (changed && (delta & col_mask)) {
-          ++row_counts[row];
-          statep->count = (raw_row & col_mask) ? DEBOUNCE_DOWN : DEBOUNCE_UP;
+        if (likely(row_counts[row] == 0) && !changed) {
+            statep += MATRIX_COLS;
+            continue;
         }
-      }
 
-      cooked[row] = cooked_row;
+        local_row_t raw_row    = raw[row];
+        local_row_t cooked_row = cooked[row];
+        local_row_t delta      = raw_row ^ cooked_row;
+
+        local_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col, col_mask <<= 1, ++statep) {
+            if (unlikely(statep->count > elapsed)) {
+                statep->count -= elapsed;
+            } else if (unlikely(statep->count)) {
+                if (delta & col_mask) {
+                    cooked_row ^= col_mask;
+                    statep->count = DEBOUNCE_MUTE;
+                } else {
+                    statep->count = 0;
+                    --row_counts[row];
+                }
+            } else if (changed && (delta & col_mask)) {
+                ++row_counts[row];
+                statep->count = (raw_row & col_mask) ? DEBOUNCE_DOWN : DEBOUNCE_UP;
+            }
+        }
+
+        cooked[row] = cooked_row;
     }
 }
 
