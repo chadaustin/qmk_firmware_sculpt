@@ -84,6 +84,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 2
 #define QMK_KEYS_PER_SCAN 4
 
+#define DEBUG_MATRIX_SCAN_RATE 1
+
 
 /*
  * Feature disable options

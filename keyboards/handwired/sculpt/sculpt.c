@@ -1,5 +1,5 @@
 #include "sculpt.h"
-
+#include "debounce.h"
 #include <avr/power.h>
 
 void keyboard_pre_init_kb(void) {
@@ -28,6 +28,8 @@ void keyboard_post_init_kb(void) {
     // 47K and the AT90USB's internal pull-up is between 20K and 50K.
     setPinInput(F4);
 
+    debug_enable = true;
+
     keyboard_post_init_user();
 }
 
@@ -43,8 +45,8 @@ void dip_switch_update_kb(uint8_t index, bool active) {
     dip_switch_update_user(index, active);
 }
 
-#if LATENCY_MODE_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#if LATENCY_MODE_ENABLE
     static int count = 0;
     if (record->event.pressed) {
         ++count;
@@ -60,6 +62,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             writePinLow(LATENCY_MODE_PIN);
         }
     }
+#endif
+    const uint8_t both_shifts = MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT);
+    switch (keycode) {
+    case KC_H:
+        if ((get_mods() & both_shifts) == both_shifts) {
+            debounce_debug();
+            return false;
+        }
+    }
+
     return process_record_user(keycode, record);
 }
-#endif
