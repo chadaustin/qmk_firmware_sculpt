@@ -41,10 +41,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /*
- * 2 ms (a scan frame or two) should be sufficient to avoid the most common
- * bounces.
+ * I lived with no debouncing for a while, but phantom keypresses were common.
+ *
+ * I lived with DEBOUNCE_DOWN = 2 for months. Rarely, but often enough to
+ * be annoying, "the" would sometimes produce "theb" or "because" would produce
+ * "bhecause". This is under the Dvorak layout. Given this keyboard's 600 Hz
+ * scan rate, 2 is insufficient anyway, because sometimes the elapsed time between
+ * debounces rounds up to 2.
+ * 
+ * After adding debounce logging and painfully reproducing a "because" producing
+ * "bhecause", I measured 4 ms on the phantom h keypress. Therefore, let's try
+ * setting DEBOUNCE_DOWN to 4.
  */
-#define DEBOUNCE_DOWN 2
+#define DEBOUNCE_DOWN 4
 /*
  * Keyup latency is less perceptible unless phantom keys appear, so use
  * a longer debounce.
