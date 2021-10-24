@@ -141,9 +141,13 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
         local_row_t col_mask = 1;
         for (uint8_t col = 0; col < MATRIX_COLS; ++col, col_mask <<= 1, ++statep) {
+            if (changed && (delta & col_mask)) {
+                record_event(now, row, col, (raw_row & col_mask) ? DETECT_DOWN : DETECT_UP);
+            }
             if (unlikely(statep->count > elapsed)) {
                 statep->count -= elapsed;
             } else if (unlikely(statep->count)) {
+                // Key reached end of debounce period.
                 if (delta & col_mask) {
                     cooked_row ^= col_mask;
                     statep->count = DEBOUNCE_MUTE;
@@ -153,7 +157,6 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
                     --row_counts[row];
                 }
             } else if (changed && (delta & col_mask)) {
-                record_event(now, row, col, (raw_row & col_mask) ? DETECT_DOWN : DETECT_UP);
                 ++row_counts[row];
                 statep->count = (raw_row & col_mask) ? DEBOUNCE_DOWN : DEBOUNCE_UP;
             }
