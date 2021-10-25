@@ -12,7 +12,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # sym_eager_pk shaves about 5 ms of latency off each keypress, but I have
 # observed some bouncing. Since keydown latency is more perceptible than
 # keyup, use an asymmetric debouncer.
-DEBOUNCE_TYPE = asym_defer_pk
+DEBOUNCE_TYPE = sym_defer_pr
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)

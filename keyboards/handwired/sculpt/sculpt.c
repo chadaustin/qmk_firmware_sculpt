@@ -63,6 +63,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
     }
 #endif
+#if 0
     const uint8_t both_shifts = MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT);
     switch (keycode) {
     case KC_H:
@@ -71,6 +72,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
     }
+#endif
 
     return process_record_user(keycode, record);
 }
